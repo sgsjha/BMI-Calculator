@@ -12,6 +12,7 @@ import FirebaseAuth
 
 class ViewController: UIViewController {
     
+        var welcomeLabel: UILabel!
         var emailTextField: UITextField!
         var passwordTextField: UITextField!
         var retrievedBMILabel: UILabel!
@@ -21,15 +22,26 @@ class ViewController: UIViewController {
         var signUpButton: UIButton!
         var loginButton: UIButton!
         var calculateButton: UIButton!
+    
+       
 
         override func viewDidLoad() {
             super.viewDidLoad()
 
             // Initialize UI Elements
+            
+            welcomeLabel = UILabel()
+            welcomeLabel.text = "BMI CALCULATOR"
+            welcomeLabel.numberOfLines = 0
+            welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(welcomeLabel)
+            
             emailTextField = UITextField()
             emailTextField.placeholder = "Email"
             emailTextField.borderStyle = .roundedRect
             emailTextField.translatesAutoresizingMaskIntoConstraints = false
+            emailTextField.autocapitalizationType = .none
+            emailTextField.autocorrectionType = .no
             view.addSubview(emailTextField)
             
             passwordTextField = UITextField()
@@ -37,6 +49,8 @@ class ViewController: UIViewController {
             passwordTextField.isSecureTextEntry = false
             passwordTextField.borderStyle = .roundedRect
             passwordTextField.translatesAutoresizingMaskIntoConstraints = false
+            passwordTextField.autocapitalizationType = .none
+            passwordTextField.autocorrectionType = .no
             view.addSubview(passwordTextField)
             
             signUpButton = UIButton(type: .system)
@@ -84,7 +98,13 @@ class ViewController: UIViewController {
         
         func setupConstraints() {
             NSLayoutConstraint.activate([
-                emailTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                
+                
+                welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                
+                emailTextField.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 20),
                 emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
                 emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
                 
