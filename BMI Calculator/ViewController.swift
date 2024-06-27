@@ -12,24 +12,115 @@ import FirebaseAuth
 
 class ViewController: UIViewController {
     
+        var emailTextField: UITextField!
+        var passwordTextField: UITextField!
+        var retrievedBMILabel: UILabel!
+        var heightTextField: UITextField!
+        var weightTextField: UITextField!
+        var resultLabel: UILabel!
+        var signUpButton: UIButton!
+        var loginButton: UIButton!
+        var calculateButton: UIButton!
+
+        override func viewDidLoad() {
+            super.viewDidLoad()
+
+            // Initialize UI Elements
+            emailTextField = UITextField()
+            emailTextField.placeholder = "Email"
+            emailTextField.borderStyle = .roundedRect
+            emailTextField.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(emailTextField)
+            
+            passwordTextField = UITextField()
+            passwordTextField.placeholder = "Password"
+            passwordTextField.isSecureTextEntry = false
+            passwordTextField.borderStyle = .roundedRect
+            passwordTextField.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(passwordTextField)
+            
+            signUpButton = UIButton(type: .system)
+            signUpButton.setTitle("Sign Up", for: .normal)
+            signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
+            signUpButton.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(signUpButton)
+            
+            loginButton = UIButton(type: .system)
+            loginButton.setTitle("Login", for: .normal)
+            loginButton.addTarget(self, action: #selector(login(_:)), for: .touchUpInside)
+            loginButton.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(loginButton)
+            
+            retrievedBMILabel = UILabel()
+            retrievedBMILabel.numberOfLines = 0
+            retrievedBMILabel.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(retrievedBMILabel)
+            
+            heightTextField = UITextField()
+            heightTextField.placeholder = "Height (cm)"
+            heightTextField.borderStyle = .roundedRect
+            heightTextField.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(heightTextField)
+            
+            weightTextField = UITextField()
+            weightTextField.placeholder = "Weight (kg)"
+            weightTextField.borderStyle = .roundedRect
+            weightTextField.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(weightTextField)
+            
+            calculateButton = UIButton(type: .system)
+            calculateButton.setTitle("Calculate BMI", for: .normal)
+            calculateButton.addTarget(self, action: #selector(calculateBMI(_:)), for: .touchUpInside)
+            calculateButton.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(calculateButton)
+            
+            resultLabel = UILabel()
+            resultLabel.numberOfLines = 0
+            resultLabel.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(resultLabel)
+            
+            setupConstraints()
+        }
+        
+        func setupConstraints() {
+            NSLayoutConstraint.activate([
+                emailTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                
+                passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
+                passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                
+                signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
+                signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                
+                loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
+                loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                
+                retrievedBMILabel.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 20),
+                retrievedBMILabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                retrievedBMILabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                
+                heightTextField.topAnchor.constraint(equalTo: retrievedBMILabel.bottomAnchor, constant: 20),
+                heightTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                heightTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                
+                weightTextField.topAnchor.constraint(equalTo: heightTextField.bottomAnchor, constant: 10),
+                weightTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                weightTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                
+                calculateButton.topAnchor.constraint(equalTo: weightTextField.bottomAnchor, constant: 10),
+                calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                
+                resultLabel.topAnchor.constraint(equalTo: calculateButton.bottomAnchor, constant: 20),
+                resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            ])
+        }
     
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
     
-    @IBOutlet weak var retrievedBMILabel: UILabel!
-    
-    @IBOutlet weak var heightTextField: UITextField!
-    @IBOutlet weak var weightTextField: UITextField!
-    @IBOutlet weak var resultLabel: UILabel!
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-    
-    
-    @IBAction func signUp(_ sender: UIButton) {
+    @objc func signUp(_ sender: UIButton) {
         guard let email = emailTextField.text, let password = passwordTextField.text else { return }
 
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
@@ -42,7 +133,7 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func login(_ sender: UIButton) {
+    @objc func login(_ sender: UIButton) {
        
         guard let email = emailTextField.text, let password = passwordTextField.text else { return }
 
@@ -59,7 +150,7 @@ class ViewController: UIViewController {
     
     
     
-    @IBAction func calculateBMI(_ sender: UIButton) {
+    @objc func calculateBMI(_ sender: UIButton) {
         guard let heightText = heightTextField.text, let heightCm = Double(heightText),
               let weightText = weightTextField.text, let weight = Double(weightText) else {
             resultLabel.text = "Please enter valid numbers."
