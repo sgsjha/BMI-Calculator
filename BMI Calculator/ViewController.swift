@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         var welcomeLabel: UILabel!
         var emailTextField: UITextField!
         var passwordTextField: UITextField!
+        var showHideButton: UIButton!
         var retrievedBMILabel: UILabel!
         var heightTextField: UITextField!
         var weightTextField: UITextField!
@@ -25,119 +26,171 @@ class ViewController: UIViewController {
     
        
 
-        override func viewDidLoad() {
-            super.viewDidLoad()
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
             // Initialize UI Elements
             
-            welcomeLabel = UILabel()
-            welcomeLabel.text = "BMI CALCULATOR"
-            welcomeLabel.numberOfLines = 0
-            welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(welcomeLabel)
-            
-            emailTextField = UITextField()
-            emailTextField.placeholder = "Email"
-            emailTextField.borderStyle = .roundedRect
-            emailTextField.translatesAutoresizingMaskIntoConstraints = false
-            emailTextField.autocapitalizationType = .none
-            emailTextField.autocorrectionType = .no
-            view.addSubview(emailTextField)
-            
-            passwordTextField = UITextField()
-            passwordTextField.placeholder = "Password"
-            passwordTextField.isSecureTextEntry = false
-            passwordTextField.borderStyle = .roundedRect
-            passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-            passwordTextField.autocapitalizationType = .none
-            passwordTextField.autocorrectionType = .no
-            view.addSubview(passwordTextField)
-            
-            signUpButton = UIButton(type: .system)
-            signUpButton.setTitle("Sign Up", for: .normal)
-            signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
-            signUpButton.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(signUpButton)
-            
-            loginButton = UIButton(type: .system)
-            loginButton.setTitle("Login", for: .normal)
-            loginButton.addTarget(self, action: #selector(login(_:)), for: .touchUpInside)
-            loginButton.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(loginButton)
-            
-            retrievedBMILabel = UILabel()
-            retrievedBMILabel.numberOfLines = 0
-            retrievedBMILabel.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(retrievedBMILabel)
-            
-            heightTextField = UITextField()
-            heightTextField.placeholder = "Height (cm)"
-            heightTextField.borderStyle = .roundedRect
-            heightTextField.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(heightTextField)
-            
-            weightTextField = UITextField()
-            weightTextField.placeholder = "Weight (kg)"
-            weightTextField.borderStyle = .roundedRect
-            weightTextField.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(weightTextField)
-            
-            calculateButton = UIButton(type: .system)
-            calculateButton.setTitle("Calculate BMI", for: .normal)
-            calculateButton.addTarget(self, action: #selector(calculateBMI(_:)), for: .touchUpInside)
-            calculateButton.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(calculateButton)
-            
-            resultLabel = UILabel()
-            resultLabel.numberOfLines = 0
-            resultLabel.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(resultLabel)
-            
-            setupConstraints()
-        }
-        
-        func setupConstraints() {
-            NSLayoutConstraint.activate([
+            func setupUI() {
+                    // Background color
+                    view.backgroundColor = .white
+                    
+                    // Welcome Label
+                    welcomeLabel = UILabel()
+                    welcomeLabel.text = "BMI Calculator"
+                    welcomeLabel.font = UIFont.boldSystemFont(ofSize: 28)
+                    welcomeLabel.textColor = .black
+                    welcomeLabel.textAlignment = .center
+                    welcomeLabel.numberOfLines = 0
+                    welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(welcomeLabel)
+                    
+                    // Email TextField
+                    emailTextField = UITextField()
+                    emailTextField.placeholder = "Email"
+                    emailTextField.borderStyle = .roundedRect
+                    emailTextField.translatesAutoresizingMaskIntoConstraints = false
+                    emailTextField.autocapitalizationType = .none
+                    emailTextField.autocorrectionType = .no
+                    view.addSubview(emailTextField)
+                    
+                    // Password TextField
+                    passwordTextField = UITextField()
+                    passwordTextField.placeholder = "Password"
+                    passwordTextField.isSecureTextEntry = true
+                    passwordTextField.borderStyle = .roundedRect
+                    passwordTextField.translatesAutoresizingMaskIntoConstraints = false
+                    passwordTextField.autocapitalizationType = .none
+                    passwordTextField.autocorrectionType = .no
+                    view.addSubview(passwordTextField)
                 
+                   // Show/Hide Password Button
+                   showHideButton = UIButton(type: .system)
+                   showHideButton.setImage(UIImage(systemName: "eye"), for: .normal)
+                   showHideButton.tintColor = .black
+                   showHideButton.addTarget(self, action: #selector(togglePasswordVisibility(_:)), for: .touchUpInside)
+                   showHideButton.translatesAutoresizingMaskIntoConstraints = false
+                   view.addSubview(showHideButton)
+                    
+                    // Sign Up Button
+                    signUpButton = UIButton(type: .system)
+                    signUpButton.setTitle("Sign Up", for: .normal)
+                    signUpButton.setTitleColor(.white, for: .normal)
+                    signUpButton.backgroundColor = .blue
+                    signUpButton.layer.cornerRadius = 8
+                    signUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
+                    signUpButton.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(signUpButton)
+                    
+                    // Login Button
+                    loginButton = UIButton(type: .system)
+                    loginButton.setTitle("Login", for: .normal)
+                    loginButton.setTitleColor(.white, for: .normal)
+                    loginButton.backgroundColor = .green
+                    loginButton.layer.cornerRadius = 8
+                    loginButton.addTarget(self, action: #selector(login(_:)), for: .touchUpInside)
+                    loginButton.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(loginButton)
+                    
+                    // BMI History Label
+                    retrievedBMILabel = UILabel()
+                    retrievedBMILabel.numberOfLines = 0
+                    retrievedBMILabel.textColor = .black
+                    retrievedBMILabel.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(retrievedBMILabel)
+                    
+                    // Height TextField
+                    heightTextField = UITextField()
+                    heightTextField.placeholder = "Height (cm)"
+                    heightTextField.borderStyle = .roundedRect
+                    heightTextField.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(heightTextField)
+                    
+                    // Weight TextField
+                    weightTextField = UITextField()
+                    weightTextField.placeholder = "Weight (kg)"
+                    weightTextField.borderStyle = .roundedRect
+                    weightTextField.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(weightTextField)
+                    
+                    // Calculate BMI Button
+                    calculateButton = UIButton(type: .system)
+                    calculateButton.setTitle("Calculate BMI", for: .normal)
+                    calculateButton.setTitleColor(.white, for: .normal)
+                    calculateButton.backgroundColor = .purple
+                    calculateButton.layer.cornerRadius = 8
+                    calculateButton.addTarget(self, action: #selector(calculateBMI(_:)), for: .touchUpInside)
+                    calculateButton.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(calculateButton)
+                    
+                    // Result Label
+                    resultLabel = UILabel()
+                    resultLabel.numberOfLines = 0
+                    resultLabel.textColor = .black
+                    resultLabel.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(resultLabel)
+                    
+                    setupConstraints()
+                }
                 
-                welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-                welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                
-                emailTextField.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 20),
-                emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                
-                passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
-                passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                
-                signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
-                signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                
-                loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
-                loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                
-                retrievedBMILabel.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 20),
-                retrievedBMILabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                retrievedBMILabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                
-                heightTextField.topAnchor.constraint(equalTo: retrievedBMILabel.bottomAnchor, constant: 20),
-                heightTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                heightTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                
-                weightTextField.topAnchor.constraint(equalTo: heightTextField.bottomAnchor, constant: 10),
-                weightTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                weightTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                
-                calculateButton.topAnchor.constraint(equalTo: weightTextField.bottomAnchor, constant: 10),
-                calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                
-                resultLabel.topAnchor.constraint(equalTo: calculateButton.bottomAnchor, constant: 20),
-                resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-            ])
-        }
+                func setupConstraints() {
+                    NSLayoutConstraint.activate([
+                        // Constraints for welcomeLabel
+                        welcomeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                        welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                        welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                        
+                        // Constraints for emailTextField
+                        emailTextField.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 20),
+                        emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                        emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                        
+                        // Constraints for passwordTextField
+                        passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
+                        passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                        passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                        
+                        // Constaints for Show hide Button
+                        showHideButton.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
+                        showHideButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: -10),
+                        
+                        // Constraints for signUpButton
+                        signUpButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
+                        signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                        signUpButton.widthAnchor.constraint(equalToConstant: 120),
+                        
+                        // Constraints for loginButton
+                        loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
+                        loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                        loginButton.widthAnchor.constraint(equalToConstant: 120),
+                        
+                        // Constraints for retrievedBMILabel
+                        retrievedBMILabel.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 20),
+                        retrievedBMILabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                        retrievedBMILabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                        
+                        // Constraints for heightTextField
+                        heightTextField.topAnchor.constraint(equalTo: retrievedBMILabel.bottomAnchor, constant: 20),
+                        heightTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                        heightTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                        
+                        // Constraints for weightTextField
+                        weightTextField.topAnchor.constraint(equalTo: heightTextField.bottomAnchor, constant: 10),
+                        weightTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                        weightTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                        
+                        // Constraints for calculateButton
+                        calculateButton.topAnchor.constraint(equalTo: weightTextField.bottomAnchor, constant: 10),
+                        calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                        calculateButton.widthAnchor.constraint(equalToConstant: 200),
+                        
+                        // Constraints for resultLabel
+                        resultLabel.topAnchor.constraint(equalTo: calculateButton.bottomAnchor, constant: 20),
+                        resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                        resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+                    ])
+                }
     
     
     @objc func signUp(_ sender: UIButton) {
@@ -186,6 +239,12 @@ class ViewController: UIViewController {
                 saveBMIData(bmi: bmi)
 
         
+    }
+    
+    @objc func togglePasswordVisibility(_ sender: UIButton) {
+        passwordTextField.isSecureTextEntry.toggle()
+        let imageName = passwordTextField.isSecureTextEntry ? "eye" : "eye.fill"
+        sender.setImage(UIImage(systemName: imageName), for: .normal)
     }
     
     //updated
