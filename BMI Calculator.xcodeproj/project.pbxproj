@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		621AFBAA2C2E736E0050CD04 /* UISetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621AFBA92C2E736E0050CD04 /* UISetup.swift */; };
 		62AD8E742C2C2B2600BF33C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AD8E732C2C2B2600BF33C3 /* AppDelegate.swift */; };
 		62AD8E762C2C2B2600BF33C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AD8E752C2C2B2600BF33C3 /* SceneDelegate.swift */; };
 		62AD8E782C2C2B2600BF33C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AD8E772C2C2B2600BF33C3 /* ViewController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		621AFBA92C2E736E0050CD04 /* UISetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISetup.swift; sourceTree = "<group>"; };
 		62AD8E702C2C2B2600BF33C3 /* BMI Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BMI Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62AD8E732C2C2B2600BF33C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62AD8E752C2C2B2600BF33C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				62AD8E732C2C2B2600BF33C3 /* AppDelegate.swift */,
 				62AD8E752C2C2B2600BF33C3 /* SceneDelegate.swift */,
 				62AD8E772C2C2B2600BF33C3 /* ViewController.swift */,
+				621AFBA92C2E736E0050CD04 /* UISetup.swift */,
 				62AD8E792C2C2B2600BF33C3 /* Main.storyboard */,
 				62AD8EA32C2C446100BF33C3 /* GoogleService-Info.plist */,
 				62AD8E7F2C2C2B2700BF33C3 /* Assets.xcassets */,
@@ -184,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62AD8E7E2C2C2B2600BF33C3 /* BMI_Calculator.xcdatamodeld in Sources */,
+				621AFBAA2C2E736E0050CD04 /* UISetup.swift in Sources */,
 				62AD8E782C2C2B2600BF33C3 /* ViewController.swift in Sources */,
 				62AD8E742C2C2B2600BF33C3 /* AppDelegate.swift in Sources */,
 				62AD8E762C2C2B2600BF33C3 /* SceneDelegate.swift in Sources */,
