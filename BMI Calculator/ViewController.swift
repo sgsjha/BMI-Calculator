@@ -27,11 +27,15 @@ class ViewController: UIViewController {
     var loginButton: UIButton!
     var calculateButton: UIButton!
     var loginCommentLabel: UILabel!
+    var authenticated = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
+    
+    
+    
 
     func setupUI() {
         // Scroll View
@@ -247,9 +251,12 @@ class ViewController: UIViewController {
             if let error = error {
                 print("Sign up error: \(error.localizedDescription)")
                 self.loginCommentLabel.text = "Sign up error: \(error.localizedDescription)"
+                self.loginCommentLabel.textColor = .red // Red color for error
                 return
             }
-            self.loginCommentLabel.text = ""
+            self.loginCommentLabel.text = "Signup successful!"
+            self.loginCommentLabel.textColor = .green // Green color for success
+            self.authenticated = true
             self.retrieveBMIs()
         }
     }
@@ -261,38 +268,49 @@ class ViewController: UIViewController {
             if let error = error {
                 print("Login error: \(error.localizedDescription)")
                 self.loginCommentLabel.text = "Login error: \(error.localizedDescription)"
+                self.loginCommentLabel.textColor = .red // Red color for error
                 return
             }
-            self.loginCommentLabel.text = ""
+            self.loginCommentLabel.text = "Login successful!"
+            self.loginCommentLabel.textColor = .green // Green color for success
+            self.authenticated = true
             self.retrieveBMIs()
         }
     }
 
     @objc func calculateBMI(_ sender: UIButton) {
-        guard let heightText = heightTextField.text, let weightText = weightTextField.text,
-              let height = Double(heightText), let weight = Double(weightText) else {
-            resultLabel.text = "Please enter valid height and weight."
-            return
+        if authenticated == true {
+            
+            guard let heightText = heightTextField.text, let weightText = weightTextField.text,
+                  let height = Double(heightText), let weight = Double(weightText) else {
+                resultLabel.text = "Please enter valid height and weight."
+                return
+            }
+
+            let heightInMeters = height / 100
+            let bmi = weight / (heightInMeters * heightInMeters)
+
+            let comment: String
+            switch bmi {
+            case ..<18.5:
+                comment = "Underweight"
+            case 18.5..<24.9:
+                comment = "Normal weight"
+            case 25.0..<29.9:
+                comment = "Overweight"
+            default:
+                comment = "Obese"
+            }
+
+            resultLabel.text = "Your BMI is \(String(format: "%.2f", bmi)) (\(comment))"
+
+            saveBMI(bmi)
         }
-
-        let heightInMeters = height / 100
-        let bmi = weight / (heightInMeters * heightInMeters)
-
-        let comment: String
-        switch bmi {
-        case ..<18.5:
-            comment = "Underweight"
-        case 18.5..<24.9:
-            comment = "Normal weight"
-        case 25.0..<29.9:
-            comment = "Overweight"
-        default:
-            comment = "Obese"
+        else {
+            self.loginCommentLabel.text = "Please Login or signup to Calculate BMI"
+            self.loginCommentLabel.textColor = .orange // Green color for success
         }
-
-        resultLabel.text = "Your BMI is \(String(format: "%.2f", bmi)) (\(comment))"
-
-        saveBMI(bmi)
+        
     }
 
     func saveBMI(_ bmi: Double) {
