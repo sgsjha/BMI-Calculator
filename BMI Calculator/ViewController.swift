@@ -86,7 +86,7 @@ class ViewController: UIViewController {
             }
 
             let heightInMeters = height / 100 // convert to meters
-            let bmi = weight / (heightInMeters * heightInMeters)
+            let bmi = weight / (heightInMeters * heightInMeters) // BMI Formula
             
             // Switch statement to determine BMI Range
             let comment: String
