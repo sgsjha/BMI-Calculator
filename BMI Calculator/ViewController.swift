@@ -72,6 +72,7 @@ class ViewController: UIViewController {
            passwordTextField.translatesAutoresizingMaskIntoConstraints = false
            passwordTextField.autocapitalizationType = .none
            passwordTextField.autocorrectionType = .no
+           passwordTextField.textContentType = .oneTimeCode
            contentView.addSubview(passwordTextField)
 
            // Show/Hide Password Button
@@ -316,7 +317,8 @@ class ViewController: UIViewController {
                                     dateFormatter.dateStyle = .short
                                     dateFormatter.timeStyle = .short
                                     let dateString = dateFormatter.string(from: date)
-                                    bmiHistoryText += "BMI: \(bmi), Date: \(dateString)\n"
+                                    //bmiHistoryText += "BMI: \(bmi), Date: \(dateString)\n"
+                                    bmiHistoryText += String(format: "BMI: %.2f, Date: %@\n", bmi, dateString)
                                 } else {
                                     print("Error parsing dict: \(dict)")
                                 }
